@@ -1,0 +1,58 @@
+package tbs.server;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class Seating implements Dumpable {
+
+  int _seatingDimension = 0;
+  boolean[][] _isTaken;
+
+  public Seating(int seatingDimension) {
+    _seatingDimension = seatingDimension;
+    _isTaken = new boolean[seatingDimension + 1][seatingDimension + 1];
+  }
+
+  public List<String> listAvailable() {
+    ArrayList<String> available = new ArrayList<>();
+    for (int rowNumber = 1; rowNumber <= _seatingDimension; rowNumber++) {
+      for (int seatNumber = 1; seatNumber <= _seatingDimension; seatNumber++) {
+        if (!_isTaken[rowNumber][seatNumber]) {
+          available.add(rowNumber + "\t" + seatNumber);
+        }
+      }
+    }
+    return available;
+  }
+
+  public boolean isPremium(int rowNumber, int seatNumber) {
+    return rowNumber <= _seatingDimension / 2;
+  }
+
+  public void occupy(int rowNumber, int seatNumber, Ticket ticket) throws TBSRequestException {
+    if (rowNumber < 1 || rowNumber > _seatingDimension) {
+      throw new TBSRequestException("ANGERY");
+    }
+    if (seatNumber < 1 || seatNumber > _seatingDimension) {
+      throw new TBSRequestException("ANGERY");
+    }
+    if (_isTaken[rowNumber][seatNumber]) {
+      throw new TBSRequestException("ANGERY");
+    }
+    _isTaken[rowNumber][seatNumber] = true;
+  }
+
+  public void dump(Dump dump) {
+    dump.add("Seating");
+    dump.groupStart();
+    for (int rowNumber = 1; rowNumber <= _seatingDimension; rowNumber++) {
+      String rowLine = "";
+      for (int seatNumber = 1; seatNumber <= _seatingDimension; seatNumber++) {
+        rowLine += _isTaken[rowNumber][seatNumber] ? "T " : "- ";
+      }
+      dump.add(rowLine);
+    }
+    dump.groupEnd();
+  }
+
+}
