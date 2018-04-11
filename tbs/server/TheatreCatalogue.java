@@ -10,79 +10,79 @@ import java.io.IOException;
 
 public class TheatreCatalogue extends Catalogue<Theatre> {
 
-  public void addFromFile(String pathStr) throws TBSRequestException {
+	public void addFromFile(String pathStr) throws TBSRequestException {
 
-    if (pathStr == null || pathStr.isEmpty()) {
-      throw new TBSRequestException("File path is empty");
-    }
+		if (pathStr == null || pathStr.isEmpty()) {
+			throw new TBSRequestException("File path is empty");
+		}
 
-    Path path = FileSystems.getDefault().getPath(pathStr);
+		Path path = FileSystems.getDefault().getPath(pathStr);
 
-    try (BufferedReader reader = Files.newBufferedReader(path)) {
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
 
-      String line = reader.readLine();
+			String line = reader.readLine();
 
-      while (line != null) {
-        addFromFileLine(line);
-        line = reader.readLine();
-      }
+			while (line != null) {
+				addFromFileLine(line);
+				line = reader.readLine();
+			}
 
-    } catch (FileNotFoundException e) {
-      throw new TBSRequestException("Initialisation file does not exist");
-    } catch (IOException e) {
-      throw new TBSRequestException("Could not read initialisation file");
-    }
-  }
+		} catch (FileNotFoundException e) {
+			throw new TBSRequestException("Initialisation file does not exist");
+		} catch (IOException e) {
+			throw new TBSRequestException("Could not read initialisation file");
+		}
+	}
 
-  private void addFromFileLine(String line) throws TBSRequestException {
+	private void addFromFileLine(String line) throws TBSRequestException {
 
-    String[] groups = line.split("\t");
+		String[] groups = line.split("\t");
 
-    if (groups.length != 4) {
-      throw new FileWrongFormatException();
-    }
-    if (!groups[0].equals("THEATRE")) {
-      throw new FileWrongFormatException();
-    }
-    if (!groups[2].matches("^\\d+$")) {
-      throw new FileWrongFormatException();
-    }
+		if (groups.length != 4) {
+			throw new FileWrongFormatException();
+		}
+		if (!groups[0].equals("THEATRE")) {
+			throw new FileWrongFormatException();
+		}
+		if (!groups[2].matches("^\\d+$")) {
+			throw new FileWrongFormatException();
+		}
 
-    String theatreID = groups[1];
-    int seatingDimension = 0;
-    double floorArea = 0;
+		String theatreID = groups[1];
+		int seatingDimension = 0;
+		double floorArea = 0;
 
-    try {
+		try {
 
-      seatingDimension = Integer.parseInt(groups[2]);
-      floorArea = Double.parseDouble(groups[3]);
+			seatingDimension = Integer.parseInt(groups[2]);
+			floorArea = Double.parseDouble(groups[3]);
 
-    } catch (NumberFormatException e) {
-      throw new FileWrongFormatException();
-    }
+		} catch (NumberFormatException e) {
+			throw new FileWrongFormatException();
+		}
 
-    add(new Theatre(theatreID, seatingDimension, floorArea));
+		add(new Theatre(theatreID, seatingDimension, floorArea));
 
-  }
-  public void dump(Dump dump) {
-    super.dump(dump);
-    dump.rewritePrevious("Theatre Catalogue");
-  }
+	}
+	public void dump(Dump dump) {
+		super.dump(dump);
+		dump.rewritePrevious("Theatre Catalogue");
+	}
 
-  protected String createNotFoundMessage(String id) {
-    return "Theatre with theatre ID `" + id + "` does not exist";
-  }
+	protected String createNotFoundMessage(String id) {
+		return "Theatre with theatre ID `" + id + "` does not exist";
+	}
 
-  protected String createEmptyIDMessage() {
-    return "Theatre ID is empty";
-  }
+	protected String createEmptyIDMessage() {
+		return "Theatre ID is empty";
+	}
 
-  private class FileWrongFormatException extends TBSRequestException {
+	private class FileWrongFormatException extends TBSRequestException {
 
-    public FileWrongFormatException() {
-      super("Initialisation file has incorrect format");
-    }
+		public FileWrongFormatException() {
+			super("Initialisation file has incorrect format");
+		}
 
-  }
+	}
 
 }
