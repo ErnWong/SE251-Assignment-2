@@ -12,6 +12,10 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 
   public void addFromFile(String pathStr) throws TBSRequestException {
 
+    if (pathStr == null || pathStr.isEmpty()) {
+      throw new TBSRequestException("File path is empty");
+    }
+
     Path path = FileSystems.getDefault().getPath(pathStr);
 
     try (BufferedReader reader = Files.newBufferedReader(path)) {

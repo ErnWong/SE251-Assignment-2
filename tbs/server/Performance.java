@@ -24,7 +24,7 @@ public class Performance extends IDableEntity {
 
   public void setStartTime(String startTimeStr) throws TBSRequestException {
     if (!startTimeStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")) {
-      throw new TBSRequestException("ANGERY");
+      throw new TimeWrongFormatException();
     }
 
     String[] groups = startTimeStr.split("[\\-T\\:]");
@@ -36,21 +36,22 @@ public class Performance extends IDableEntity {
       int day = Integer.parseInt(groups[2]);
       int hour = Integer.parseInt(groups[3]);
       int minute = Integer.parseInt(groups[4]);
+
       if(month < 1 || month > 12) {
-        throw new TBSRequestException("ANGERY");
+        throw new TimeWrongFormatException();
       }
       if(day < 1 || day > 31) {
-        throw new TBSRequestException("ANGERY");
+        throw new TimeWrongFormatException();
       }
       if(hour > 59) {
-        throw new TBSRequestException("ANGERY");
+        throw new TimeWrongFormatException();
       }
       if(minute > 59) {
-        throw new TBSRequestException("ANGERY");
+        throw new TimeWrongFormatException();
       }
 
     } catch (NumberFormatException e) {
-      throw new TBSRequestException("ANGERY");
+      throw new TimeWrongFormatException();
     }
 
     _startTime = startTimeStr;
@@ -119,11 +120,15 @@ public class Performance extends IDableEntity {
   }
 
   private class PriceWrongFormatException extends TBSRequestException {
-
     public PriceWrongFormatException() {
-      super("Price has the wrong format");
+      super("Price is in the wrong format");
     }
+  }
 
+  private class TimeWrongFormatException extends TBSRequestException {
+    public TimeWrongFormatException() {
+      super("Start time is in the wrong format");
+    }
   }
 
 }

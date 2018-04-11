@@ -11,7 +11,14 @@ public class Act extends IDableEntity {
   private int _minutesDuration;
   private PerformanceCatalogue _performances = new PerformanceCatalogue();
 
-  public Act(String title, Artist artist, int minutesDuration) {
+  public Act(String title, Artist artist, int minutesDuration) throws TBSRequestException {
+    if (title == null || title.trim().isEmpty()) {
+      throw new TBSRequestException("Act title is empty");
+    }
+    if (minutesDuration <= 0) {
+      throw new TBSRequestException("Act has non-positive duration");
+    }
+
     _title = title;
     _artist = artist;
     _minutesDuration = minutesDuration;

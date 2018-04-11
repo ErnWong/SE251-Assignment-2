@@ -9,11 +9,14 @@ public class Artist extends IDableEntity {
   private String _name;
   private TreeSet<String> _actIDs = new TreeSet<>();
 
-  public Artist(String name) {
+  public Artist(String name) throws TBSRequestException {
+    if (name == null || name.trim().isEmpty()) {
+      throw new TBSRequestException("Artist name is empty");
+    }
     _name = name;
   }
 
-  public Act createAct(String title, int minutesDuration) {
+  public Act createAct(String title, int minutesDuration) throws TBSRequestException {
     Act act = new Act(title, this, minutesDuration);
     _actIDs.add(act.getID());
     return act;

@@ -31,13 +31,13 @@ public class Seating implements Dumpable {
 
   public void occupy(int rowNumber, int seatNumber, Ticket ticket) throws TBSRequestException {
     if (rowNumber < 1 || rowNumber > _seatingDimension) {
-      throw new TBSRequestException("ANGERY");
+      throw new TBSRequestException("Row number is invalid");
     }
     if (seatNumber < 1 || seatNumber > _seatingDimension) {
-      throw new TBSRequestException("ANGERY");
+      throw new TBSRequestException("Seat number is invalid");
     }
     if (_isTaken[rowNumber][seatNumber]) {
-      throw new TBSRequestException("ANGERY");
+      throw new TBSRequestException("Seat is already taken");
     }
     _isTaken[rowNumber][seatNumber] = true;
   }

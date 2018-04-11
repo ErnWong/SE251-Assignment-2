@@ -20,11 +20,14 @@ public abstract class Catalogue<T extends IDableEntity> implements Iterable<T>, 
       String message = createEmptyIDMessage();
       throw new TBSRequestException(message);
     }
+
     T item = _items.get(id);
+
     if (item == null) {
       String message = createNotFoundMessage(id);
       throw new TBSRequestException(message);
     }
+
     return item;
   }
 
