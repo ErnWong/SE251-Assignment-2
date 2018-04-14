@@ -1,4 +1,7 @@
-package tbs.server;
+package tbs.server.performance;
+
+import tbs.server.Catalogue;
+import tbs.server.Dump;
 
 public class PerformanceCatalogue extends Catalogue<Performance> {
 

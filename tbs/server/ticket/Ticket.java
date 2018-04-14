@@ -1,4 +1,7 @@
-package tbs.server;
+package tbs.server.ticket;
+
+import tbs.server.IDableEntity;
+import tbs.server.Dump;
 
 public class Ticket extends IDableEntity {
 

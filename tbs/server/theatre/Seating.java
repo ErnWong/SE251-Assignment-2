@@ -1,4 +1,8 @@
-package tbs.server;
+package tbs.server.theatre;
+
+import tbs.server.TBSRequestException;
+import tbs.server.Dumpable;
+import tbs.server.Dump;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ public class Seating implements Dumpable {
 		return rowNumber <= _seatingDimension / 2;
 	}
 
-	public void occupy(int rowNumber, int seatNumber, Ticket ticket) throws TBSRequestException {
+	public void occupy(int rowNumber, int seatNumber) throws TBSRequestException {
 		if (rowNumber < 1 || rowNumber > _seatingDimension) {
 			throw new TBSRequestException("Row number is invalid");
 		}

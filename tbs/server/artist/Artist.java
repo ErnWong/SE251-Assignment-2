@@ -1,4 +1,9 @@
-package tbs.server;
+package tbs.server.artist;
+
+import tbs.server.IDableEntity;
+import tbs.server.TBSRequestException;
+import tbs.server.Dump;
+import tbs.server.act.Act;
 
 import java.util.TreeSet;
 import java.util.List;

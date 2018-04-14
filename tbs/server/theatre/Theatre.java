@@ -1,4 +1,7 @@
-package tbs.server;
+package tbs.server.theatre;
+
+import tbs.server.IDableEntity;
+import tbs.server.Dump;
 
 import java.util.TreeSet;
 import java.util.List;

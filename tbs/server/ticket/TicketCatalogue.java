@@ -1,4 +1,7 @@
-package tbs.server;
+package tbs.server.ticket;
+
+import tbs.server.Catalogue;
+import tbs.server.Dump;
 
 public class TicketCatalogue extends Catalogue<Ticket> {
 

@@ -1,4 +1,7 @@
-package tbs.server;
+package tbs.server.act;
+
+import tbs.server.Catalogue;
+import tbs.server.Dump;
 
 public class ActCatalogue extends Catalogue<Act> {
 

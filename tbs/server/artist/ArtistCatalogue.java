@@ -1,4 +1,9 @@
-package tbs.server;
+package tbs.server.artist;
+
+import tbs.server.Catalogue;
+import tbs.server.TBSRequestException;
+import tbs.server.Dump;
+import tbs.server.artist.Artist;
 
 import java.util.List;
 import java.util.ArrayList;

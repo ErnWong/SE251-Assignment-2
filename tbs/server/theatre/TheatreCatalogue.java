@@ -1,4 +1,8 @@
-package tbs.server;
+package tbs.server.theatre;
+
+import tbs.server.Catalogue;
+import tbs.server.TBSRequestException;
+import tbs.server.Dump;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

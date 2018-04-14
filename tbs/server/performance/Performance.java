@@ -1,4 +1,13 @@
-package tbs.server;
+package tbs.server.performance;
+
+import tbs.server.IDableEntity;
+import tbs.server.TBSRequestException;
+import tbs.server.Dump;
+import tbs.server.act.Act;
+import tbs.server.theatre.Theatre;
+import tbs.server.theatre.Seating;
+import tbs.server.ticket.TicketCatalogue;
+import tbs.server.ticket.Ticket;
 
 import java.util.Date;
 import java.util.List;
@@ -83,7 +92,7 @@ public class Performance extends IDableEntity {
 
 	public String issueTicket(int rowNumber, int seatNumber) throws TBSRequestException{
 		Ticket ticket = new Ticket(rowNumber, seatNumber);
-		_seating.occupy(rowNumber, seatNumber, ticket);
+		_seating.occupy(rowNumber, seatNumber);
 		_tickets.add(ticket);
 
 		if (_seating.isPremium(rowNumber, seatNumber)) {

@@ -1,5 +1,14 @@
 package tbs.server;
 
+import tbs.server.theatre.TheatreCatalogue;
+import tbs.server.theatre.Theatre;
+import tbs.server.artist.ArtistCatalogue;
+import tbs.server.artist.Artist;
+import tbs.server.act.ActCatalogue;
+import tbs.server.act.Act;
+import tbs.server.performance.PerformanceCatalogue;
+import tbs.server.performance.Performance;
+
 import java.util.List;
 import java.util.ArrayList;
 
