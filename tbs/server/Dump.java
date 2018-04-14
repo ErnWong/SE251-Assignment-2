@@ -97,7 +97,7 @@ public class Dump {
 
 			String strLine = renderAncestors();
 
-			strLine += "	 ";
+			strLine += "   ";
 			strLine += _isLastInGroup ? "└─" : "├─";
 			strLine += " ";
 			strLine += _content;
@@ -115,7 +115,7 @@ public class Dump {
 			String strLine = "";
 			DumpLine trail = this._parent;
 			while (trail != null) {
-				strLine = (trail._isLastInGroup ? "		 " : "	 │") + strLine;
+				strLine = (trail._isLastInGroup ? "    " : "   │") + strLine;
 				trail = trail._parent;
 			}
 			return strLine;

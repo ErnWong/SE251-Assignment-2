@@ -43,6 +43,8 @@ public class CLI {
 		checkSalesReport(salesReport, perfID1, startTime, 1, "$10");
 		System.out.println();
 		
+		server.dump();
+
 		System.out.println("---------------- completed ----------------------");
 	}
 	
@@ -78,9 +80,10 @@ public class CLI {
 		System.out.println("Sales report for " + actID + " has " + salesReport.size() + " entry (expected 4)");
 		checkSalesReport(salesReport, perfID0, "2019-01-11T20:30", 0, "$0");
 		checkSalesReport(salesReport, perfID, "2019-01-13T19:00", 8, "$70");
+
+		server.dump();
 		
 		System.out.println("---------------- completed ----------------------");
-		
 	}
 	
 	private static String addArtist(TBSServer server, String artistName) {
