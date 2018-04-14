@@ -46,6 +46,7 @@ public class Seating implements Dumpable {
 		_isTaken[rowNumber][seatNumber] = true;
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		dump.add("Seating");
 		dump.groupStart();

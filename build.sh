@@ -1,1 +1,1 @@
-javac $(find . -name "*.java")
+javac $(find . -name "*.java") -Xlint

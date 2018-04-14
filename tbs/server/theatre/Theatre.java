@@ -32,6 +32,7 @@ public class Theatre extends IDableEntity {
 		return new Seating(_seatingDimension);
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		dump.add("Theatre <" + getID() +"> dim:" + _seatingDimension + ", area:" + _floorArea);
 		dump.groupStart();

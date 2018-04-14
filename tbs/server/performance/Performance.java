@@ -116,6 +116,7 @@ public class Performance extends IDableEntity {
 		return String.format("%1$s\t%2$s\t%3$d\t$%4$d", getID(), _startTime, _tickets.count(), _salesReceipts);
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		String summary = "Performance: ";
 		summary += "<" + getID() + "> ";

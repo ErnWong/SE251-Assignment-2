@@ -15,6 +15,7 @@ public class ArtistCatalogue extends Catalogue<Artist> {
 	private TreeSet<String> _names = new TreeSet<>();
 	private HashSet<String> _namesInLowerCase = new HashSet<>();
 
+	@Override
 	public void add(Artist artist) throws TBSRequestException {
 
 		String name = artist.getName();
@@ -35,15 +36,18 @@ public class ArtistCatalogue extends Catalogue<Artist> {
 		return new ArrayList<String>(_names);
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		super.dump(dump);
 		dump.rewritePrevious("Artist Catalogue");
 	}
 
+	@Override
 	protected String createNotFoundMessage(String id) {
 		return "Artist with artist ID `" + id + "` does not exist";
 	}
 
+	@Override
 	protected String createEmptyIDMessage() {
 		return "Artist ID is empty";
 	}

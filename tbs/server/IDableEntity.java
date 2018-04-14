@@ -28,6 +28,7 @@ public abstract class IDableEntity implements Dumpable {
 		_prefix = newPrefix;
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		dump.add("Id: " + _id);
 	}

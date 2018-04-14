@@ -104,6 +104,7 @@ public class Dump {
 
 			strLines.add(strLine);
 
+			// Add blank line
 			if (_isLastInGroup && _lastChild == null) {
 				strLines.add(renderAncestors());
 			}

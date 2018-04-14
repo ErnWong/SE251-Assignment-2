@@ -37,6 +37,7 @@ public class Artist extends IDableEntity {
 		return new ArrayList<String>(_actIDs);
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		dump.add("Artist: \"" + _name + "\" <" + getID() + ">");
 		dump.groupStart();

@@ -68,15 +68,19 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 		add(new Theatre(theatreID, seatingDimension, floorArea));
 
 	}
+
+	@Override
 	public void dump(Dump dump) {
 		super.dump(dump);
 		dump.rewritePrevious("Theatre Catalogue");
 	}
 
+	@Override
 	protected String createNotFoundMessage(String id) {
 		return "Theatre with theatre ID `" + id + "` does not exist";
 	}
 
+	@Override
 	protected String createEmptyIDMessage() {
 		return "Theatre ID is empty";
 	}

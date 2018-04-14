@@ -55,6 +55,7 @@ public class Act extends IDableEntity {
 		return report;
 	}
 
+	@Override
 	public void dump(Dump dump) {
 		String summary = "Act: \"" + _title + "\" ";
 		summary += "<" + getID() + "> ";
