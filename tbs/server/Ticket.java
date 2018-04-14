@@ -8,6 +8,8 @@ public class Ticket extends IDableEntity {
 	public Ticket(int rowNumber, int seatNumber) {
 		_rowNumber = rowNumber;
 		_seatNumber = seatNumber;
+
+		setIDPrefix("Ticket");
 	}
 
 	public void dump(Dump dump) {

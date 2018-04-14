@@ -14,6 +14,8 @@ public class Artist extends IDableEntity {
 			throw new TBSRequestException("Artist name is empty");
 		}
 		_name = name;
+
+		setIDPrefix("Artist");
 	}
 
 	public Act createAct(String title, int minutesDuration) throws TBSRequestException {

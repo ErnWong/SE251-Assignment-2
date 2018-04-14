@@ -20,6 +20,8 @@ public class Performance extends IDableEntity {
 		_act = act;
 		_theatre = theatre;
 		_seating = theatre.createSeating();
+
+		setIDPrefix("Performance");
 	}
 
 	public void setStartTime(String startTimeStr) throws TBSRequestException {

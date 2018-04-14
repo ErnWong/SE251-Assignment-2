@@ -11,9 +11,10 @@ public class Theatre extends IDableEntity {
 	private TreeSet<String> _performanceIDs = new TreeSet<>();
 
 	public Theatre(String theatreID, int seatingDimension, double floorArea) {
-		_id = theatreID;
 		_seatingDimension = seatingDimension;
 		_floorArea = floorArea;
+
+		setID(theatreID);
 	}
 
 	public void addPerformanceID(String performanceID) {

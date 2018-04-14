@@ -22,6 +22,8 @@ public class Act extends IDableEntity {
 		_title = title;
 		_artist = artist;
 		_minutesDuration = minutesDuration;
+
+		setIDPrefix("Act");
 	}
 
 	public Performance performAt(Theatre theatre) throws TBSRequestException {
