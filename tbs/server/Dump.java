@@ -3,6 +3,9 @@ package tbs.server;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * A glorified "printf-like debug dumper" with levels.
+ */
 public class Dump {
 
 	private List<DumpLine> _lines;

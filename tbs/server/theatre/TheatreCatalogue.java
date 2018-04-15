@@ -42,7 +42,7 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 				line = reader.readLine();
 			}
 
-			// Entire file is ok, so it is safe to finally be added
+			// Entire file is ok, so it is safe to add
 
 			for (Theatre theatre : parsedTheatres.values()) {
 				add(theatre);

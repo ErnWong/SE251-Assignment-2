@@ -91,7 +91,7 @@ public class TBSServerImpl implements TBSServer {
 		try {
 
 			Artist artist = _artists.fromID(artistID);
-			Act act = artist.createAct(title, minutesDuration);
+			Act act = artist.putAct(title, minutesDuration);
 			_acts.add(act);
 			return act.getID();
 

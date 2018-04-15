@@ -36,6 +36,7 @@ public class Performance extends IDableEntity {
 	}
 
 	public void validateStartTime(String startTimeStr) throws TBSRequestException {
+		// Check order of delimiters, group sizes, and digits
 		if (!startTimeStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")) {
 			throw new TimeWrongFormatException();
 		}
@@ -56,6 +57,7 @@ public class Performance extends IDableEntity {
 			if (day < 1 || day > 31) {
 				throw new TimeWrongFormatException();
 			}
+			// NOTE: hour of 24 is valid
 			if (hour > 24) {
 				throw new TimeWrongFormatException();
 			}
@@ -76,6 +78,7 @@ public class Performance extends IDableEntity {
 		premiumPriceStr = premiumPriceStr.substring(1);
 		cheapSeatsStr = cheapSeatsStr.substring(1);
 
+		// Check that all characters are digits
 		if (!premiumPriceStr.matches("^\\d+$") || !cheapSeatsStr.matches("^\\d+$")) {
 			throw new PriceWrongFormatException();
 		}

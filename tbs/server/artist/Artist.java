@@ -23,7 +23,7 @@ public class Artist extends IDableEntity {
 		setIDPrefix("Artist");
 	}
 
-	public Act createAct(String title, int minutesDuration) throws TBSRequestException {
+	public Act putAct(String title, int minutesDuration) throws TBSRequestException {
 		Act act = new Act(title, this, minutesDuration);
 		_acts.add(act);
 		return act;

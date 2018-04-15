@@ -14,11 +14,13 @@ public class Seating implements Dumpable {
 
 	public Seating(int seatingDimension) {
 		_seatingDimension = seatingDimension;
+
+		// + 1 so indices match row/seat numbering (ignoring row/col 0)
 		_isTaken = new boolean[seatingDimension + 1][seatingDimension + 1];
 	}
 
 	public List<String> listAvailable() {
-		ArrayList<String> available = new ArrayList<>();
+		List<String> available = new ArrayList<>();
 		for (int rowNumber = 1; rowNumber <= _seatingDimension; rowNumber++) {
 			for (int seatNumber = 1; seatNumber <= _seatingDimension; seatNumber++) {
 				if (!_isTaken[rowNumber][seatNumber]) {

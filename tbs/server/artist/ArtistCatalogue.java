@@ -8,12 +8,14 @@ import tbs.server.artist.Artist;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeSet;
+import java.util.NavigableSet;
 import java.util.HashSet;
+import java.util.Set;
 
 public class ArtistCatalogue extends Catalogue<Artist> {
 
-	private final TreeSet<String> _names = new TreeSet<>();
-	private final HashSet<String> _namesInLowerCase = new HashSet<>();
+	private final NavigableSet<String> _names = new TreeSet<>();
+	private final Set<String> _namesInLowerCase = new HashSet<>();
 
 	@Override
 	public void add(Artist artist) throws TBSRequestException {

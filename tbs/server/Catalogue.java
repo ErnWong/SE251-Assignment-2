@@ -5,12 +5,13 @@ import tbs.server.IDDuplicateException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.NavigableMap;
 import java.util.UUID;
 import java.util.Iterator;
 
 public abstract class Catalogue<T extends IDableEntity> implements Iterable<T>, Dumpable {
 
-	private final TreeMap<String,T> _items = new TreeMap<>();
+	private final NavigableMap<String,T> _items = new TreeMap<>();
 
 	public void add(T item) throws TBSRequestException {
 		String id = item.getID();
@@ -63,6 +64,7 @@ public abstract class Catalogue<T extends IDableEntity> implements Iterable<T>, 
 		dump.groupEnd();
 	}
 
+	// To customise error messages
 	protected abstract String createNotFoundMessage(String id);
 	protected abstract String createEmptyIDMessage();
 
