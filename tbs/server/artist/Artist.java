@@ -4,15 +4,15 @@ import tbs.server.IDableEntity;
 import tbs.server.TBSRequestException;
 import tbs.server.Dump;
 import tbs.server.act.Act;
+import tbs.server.act.ActCatalogue;
 
-import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Artist extends IDableEntity {
 
 	private String _name;
-	private TreeSet<String> _actIDs = new TreeSet<>();
+	private final ActCatalogue _acts = new ActCatalogue();
 
 	public Artist(String name) throws TBSRequestException {
 		if (name == null || name.trim().isEmpty()) {
@@ -25,7 +25,7 @@ public class Artist extends IDableEntity {
 
 	public Act createAct(String title, int minutesDuration) throws TBSRequestException {
 		Act act = new Act(title, this, minutesDuration);
-		_actIDs.add(act.getID());
+		_acts.add(act);
 		return act;
 	}
 
@@ -34,7 +34,7 @@ public class Artist extends IDableEntity {
 	}
 
 	public List<String> getActIDs() {
-		return new ArrayList<String>(_actIDs);
+		return _acts.toIDs();
 	}
 
 	@Override

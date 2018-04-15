@@ -2,8 +2,11 @@ package tbs.server.theatre;
 
 import tbs.server.Catalogue;
 import tbs.server.TBSRequestException;
+import tbs.server.IDDuplicateException;
 import tbs.server.Dump;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
@@ -24,11 +27,25 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 
+			Map<String,Theatre> parsedTheatres = new HashMap<>();
+
 			String line = reader.readLine();
 
 			while (line != null) {
-				addFromFileLine(line);
+				Theatre parsed = theatreFromFileLine(line);
+
+				if (parsedTheatres.containsKey(parsed.getID())) {
+					throw new TBSRequestException("Theatre IDs not unique");
+				}
+				parsedTheatres.put(parsed.getID(), parsed);
+
 				line = reader.readLine();
+			}
+
+			// Entire file is ok, so it is safe to finally be added
+
+			for (Theatre theatre : parsedTheatres.values()) {
+				add(theatre);
 			}
 
 		} catch (FileNotFoundException e) {
@@ -38,18 +55,18 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 		}
 	}
 
-	private void addFromFileLine(String line) throws TBSRequestException {
+	private Theatre theatreFromFileLine(String line) throws TBSRequestException {
 
 		String[] groups = line.split("\t");
 
 		if (groups.length != 4) {
-			throw new FileWrongFormatException();
+			throw new FileWrongFormatException("Not 4 columns");
 		}
 		if (!groups[0].equals("THEATRE")) {
-			throw new FileWrongFormatException();
+			throw new FileWrongFormatException("Incorrect first column");
 		}
 		if (!groups[2].matches("^\\d+$")) {
-			throw new FileWrongFormatException();
+			throw new FileWrongFormatException("Seat Dim. not an integer");
 		}
 
 		String theatreID = groups[1];
@@ -62,10 +79,22 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 			floorArea = Double.parseDouble(groups[3]);
 
 		} catch (NumberFormatException e) {
-			throw new FileWrongFormatException();
+			throw new FileWrongFormatException("Seat Dim. or floor area not valid numbers");
 		}
 
-		add(new Theatre(theatreID, seatingDimension, floorArea));
+		if (seatingDimension < 1) {
+			throw new TBSRequestException("Seating Dimension non-positive.");
+		}
+
+		if (floorArea < 0) {
+			throw new TBSRequestException("Floor area negative");
+		}
+
+		if (hasID(theatreID)) {
+			throw new TBSRequestException("A Theatre ID already exists.");
+		}
+
+		return new Theatre(theatreID, seatingDimension, floorArea);
 
 	}
 
@@ -87,8 +116,8 @@ public class TheatreCatalogue extends Catalogue<Theatre> {
 
 	private class FileWrongFormatException extends TBSRequestException {
 
-		public FileWrongFormatException() {
-			super("Initialisation file has incorrect format");
+		public FileWrongFormatException(String message) {
+			super("Initialisation file has incorrect format: " + message);
 		}
 
 	}

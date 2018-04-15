@@ -1,5 +1,7 @@
 package tbs.server;
 
+import tbs.server.IDDuplicateException;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -8,11 +10,20 @@ import java.util.Iterator;
 
 public abstract class Catalogue<T extends IDableEntity> implements Iterable<T>, Dumpable {
 
-	private TreeMap<String,T> _items = new TreeMap<>();
+	private final TreeMap<String,T> _items = new TreeMap<>();
 
 	public void add(T item) throws TBSRequestException {
 		String id = item.getID();
+
+		if (_items.containsKey(id)) {
+			throw new IDDuplicateException();
+		}
+
 		_items.put(id, item);
+	}
+
+	public boolean hasID(String id) {
+		return _items.containsKey(id);
 	}
 
 	public T fromID(String id) throws TBSRequestException {

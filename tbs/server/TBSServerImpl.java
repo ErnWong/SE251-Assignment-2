@@ -106,8 +106,7 @@ public class TBSServerImpl implements TBSServer {
 			Act act = _acts.fromID(actID);
 			Theatre theatre = _theatres.fromID(theatreID);
 
-			Performance performance = act.performAt(theatre);
-			performance.setStartTime(startTimeStr);
+			Performance performance = act.performAt(theatre, startTimeStr);
 			performance.setPrices(premiumPriceStr, cheapSeatsStr);
 
 			_performances.add(performance);

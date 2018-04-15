@@ -5,8 +5,8 @@ import tbs.server.Dump;
 
 public class Ticket extends IDableEntity {
 
-	private int _rowNumber;
-	private int _seatNumber;
+	private final int _rowNumber;
+	private final int _seatNumber;
 
 	public Ticket(int rowNumber, int seatNumber) {
 		_rowNumber = rowNumber;

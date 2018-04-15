@@ -1,9 +1,11 @@
 package tbs.server.theatre;
 
 import tbs.server.IDableEntity;
+import tbs.server.TBSRequestException;
 import tbs.server.Dump;
+import tbs.server.performance.PerformanceCatalogue;
+import tbs.server.performance.Performance;
 
-import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ public class Theatre extends IDableEntity {
 
 	private int _seatingDimension;
 	private double _floorArea;
-	private TreeSet<String> _performanceIDs = new TreeSet<>();
+	private final PerformanceCatalogue _performances = new PerformanceCatalogue();
 
 	public Theatre(String theatreID, int seatingDimension, double floorArea) {
 		_seatingDimension = seatingDimension;
@@ -20,12 +22,12 @@ public class Theatre extends IDableEntity {
 		setID(theatreID);
 	}
 
-	public void addPerformanceID(String performanceID) {
-		_performanceIDs.add(performanceID);
+	public void addPerformance(Performance performance) throws TBSRequestException{
+		_performances.add(performance);
 	}
 
 	public List<String> getPerformanceIDs() {
-		return new ArrayList<String>(_performanceIDs);
+		return _performances.toIDs();
 	}
 
 	public Seating createSeating() {

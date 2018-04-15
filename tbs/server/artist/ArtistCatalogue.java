@@ -12,8 +12,8 @@ import java.util.HashSet;
 
 public class ArtistCatalogue extends Catalogue<Artist> {
 
-	private TreeSet<String> _names = new TreeSet<>();
-	private HashSet<String> _namesInLowerCase = new HashSet<>();
+	private final TreeSet<String> _names = new TreeSet<>();
+	private final HashSet<String> _namesInLowerCase = new HashSet<>();
 
 	@Override
 	public void add(Artist artist) throws TBSRequestException {

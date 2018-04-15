@@ -9,31 +9,33 @@ import tbs.server.theatre.Seating;
 import tbs.server.ticket.TicketCatalogue;
 import tbs.server.ticket.Ticket;
 
-import java.util.Date;
 import java.util.List;
 
 public class Performance extends IDableEntity {
 
-	private Act _act;
-	private Theatre _theatre;
+	private final Act _act;
+	private final Theatre _theatre;
 
-	private String _startTime;
+	private final String _startTime;
 	private int _pricePremium;
 	private int _priceCheap;
 	private int _salesReceipts = 0;
 
-	private TicketCatalogue _tickets = new TicketCatalogue();
-	private Seating _seating;
+	private final TicketCatalogue _tickets = new TicketCatalogue();
+	private final Seating _seating;
 
-	public Performance(Act act, Theatre theatre) {
+	public Performance(Act act, Theatre theatre, String startTimeStr) throws TBSRequestException{
 		_act = act;
 		_theatre = theatre;
 		_seating = theatre.createSeating();
+		_startTime = startTimeStr;
+
+		validateStartTime(startTimeStr);
 
 		setIDPrefix("Performance");
 	}
 
-	public void setStartTime(String startTimeStr) throws TBSRequestException {
+	public void validateStartTime(String startTimeStr) throws TBSRequestException {
 		if (!startTimeStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")) {
 			throw new TimeWrongFormatException();
 		}
@@ -48,24 +50,22 @@ public class Performance extends IDableEntity {
 			int hour = Integer.parseInt(groups[3]);
 			int minute = Integer.parseInt(groups[4]);
 
-			if(month < 1 || month > 12) {
+			if (month < 1 || month > 12) {
 				throw new TimeWrongFormatException();
 			}
-			if(day < 1 || day > 31) {
+			if (day < 1 || day > 31) {
 				throw new TimeWrongFormatException();
 			}
-			if(hour > 59) {
+			if (hour > 24) {
 				throw new TimeWrongFormatException();
 			}
-			if(minute > 59) {
+			if (minute > 59) {
 				throw new TimeWrongFormatException();
 			}
 
 		} catch (NumberFormatException e) {
 			throw new TimeWrongFormatException();
 		}
-
-		_startTime = startTimeStr;
 	}
 
 	public void setPrices(String premiumPriceStr, String cheapSeatsStr) throws TBSRequestException {

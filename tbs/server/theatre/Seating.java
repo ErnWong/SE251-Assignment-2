@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class Seating implements Dumpable {
 
-	int _seatingDimension = 0;
-	boolean[][] _isTaken;
+	private final int _seatingDimension;
+	private boolean[][] _isTaken;
 
 	public Seating(int seatingDimension) {
 		_seatingDimension = seatingDimension;

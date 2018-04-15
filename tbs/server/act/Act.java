@@ -14,10 +14,11 @@ import java.util.ArrayList;
 
 public class Act extends IDableEntity {
 
+	private final Artist _artist;
+
 	private String _title;
-	private Artist _artist;
 	private int _minutesDuration;
-	private PerformanceCatalogue _performances = new PerformanceCatalogue();
+	private final PerformanceCatalogue _performances = new PerformanceCatalogue();
 
 	public Act(String title, Artist artist, int minutesDuration) throws TBSRequestException {
 		if (title == null || title.trim().isEmpty()) {
@@ -34,10 +35,10 @@ public class Act extends IDableEntity {
 		setIDPrefix("Act");
 	}
 
-	public Performance performAt(Theatre theatre) throws TBSRequestException {
-		Performance performance = new Performance(this, theatre);
+	public Performance performAt(Theatre theatre, String startTimeStr) throws TBSRequestException {
+		Performance performance = new Performance(this, theatre, startTimeStr);
 		_performances.add(performance);
-		theatre.addPerformanceID(performance.getID());
+		theatre.addPerformance(performance);
 		return performance;
 	}
 
