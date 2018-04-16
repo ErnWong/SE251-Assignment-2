@@ -7,8 +7,9 @@ import java.util.List;
 public class CLI {
 
 	public static void main(String[] args) {
-		simple();
-		grouped();
+		custom();
+		//simple();
+		//grouped();
 	}
 	
 	private static void simple() {
@@ -72,6 +73,44 @@ public class CLI {
 		issueTicket(server, perfID, 1, 3, 10*10-3);
 		issueTicket(server, perfID, 1, 4, 10*10-4);
 		issueTicket(server, perfID, 5, 4, 10*10-5);
+		issueTicket(server, perfID, 5, 5, 10*10-6);
+		issueTicket(server, perfID, 8, 2, 10*10-7);
+		issueTicket(server, perfID, 8, 3, 10*10-8);
+		
+		List<String> salesReport = server.salesReport(actID);
+		System.out.println("Sales report for " + actID + " has " + salesReport.size() + " entry (expected 4)");
+		checkSalesReport(salesReport, perfID0, "2019-01-11T20:30", 0, "$0");
+		checkSalesReport(salesReport, perfID, "2019-01-13T19:00", 8, "$70");
+
+		server.dump();
+		
+		System.out.println("---------------- completed ----------------------");
+	}
+
+	private static void custom() {
+		System.out.println("CUSTOM");
+		String path = "theatres1.csv";
+		TBSServer server = new TBSServerImpl();
+		server.initialise(path);
+
+		// Add multiple artists
+		String artistID = addArtist(server, "Group Artist 1");
+		artistID = addArtist(server, "Group Artist B");
+		artistID = addArtist(server, "Another Group Artist");
+		
+		String actID = addAct(server, artistID, "Group Title First", 90);
+		actID  = addAct(server, artistID, "A Group Title", 120);
+		
+		String perfID0 = schedulePerformance(server, actID, "T2", "2018-10-10T20:00", 10*10, "$15", "$7");
+		String perfID1 = schedulePerformance(server, actID, "T2", "2019-01-10T20:30", 10*10, "$10", "$7");
+		String perfID2 = schedulePerformance(server, actID, "T2", "2019-01-11T20:30", 10*10, "$12", "$3");
+		String perfID = schedulePerformance(server, actID, "T2", "2019-01-13T19:00", 10*10, "$10", "$5");
+		
+		issueTicket(server, perfID, 1, 1, 10*10-1);
+		issueTicket(server, perfID, 1, 2, 10*10-2);
+		issueTicket(server, perfID1, 1, 3, 10*10-3);
+		issueTicket(server, perfID, 1, 4, 10*10-4);
+		issueTicket(server, perfID2, 5, 4, 10*10-5);
 		issueTicket(server, perfID, 5, 5, 10*10-6);
 		issueTicket(server, perfID, 8, 2, 10*10-7);
 		issueTicket(server, perfID, 8, 3, 10*10-8);
